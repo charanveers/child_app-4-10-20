@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swish_child_app/app/components/job_card_child.dart';
 
 import 'package:swish_child_app/app/utils/network_utils.dart';
 import 'package:swish_child_app/app/utils/data_utils.dart';
@@ -11,11 +12,11 @@ import 'package:swish_child_app/app/components/job_card.dart';
 
 import 'my_activity.dart';
 
-class HomeScreen extends StatefulWidget {
-  _HomeScreenState createState() => _HomeScreenState();
+class ChildHome extends StatefulWidget {
+  _ChildHomeState createState() => _ChildHomeState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ChildHomeState extends State<ChildHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   List<dynamic> _categories = [];
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String _authToken;
 
   Color _blackColor = Color(0xff1f1f1f);
-  Color _darkGreen = Color(0xff42bc6c);
+  Color _darkGreen = Color(0xffD9F7DB);
   Color _lightGreen = Color(0xffecf8f0);
   Color _darkRed = Color(0xfffd96a8);
   Color _lightRed = Color(0xfffeeaee);
@@ -125,181 +126,184 @@ class _HomeScreenState extends State<HomeScreen> {
                 content: Text('Tab back again to exit',
                     style: TextStyle(color: Colors.white)),
                 backgroundColor: Colors.black87),
-            child: SafeArea(child: _isLoading ? Loading() : _bottomTab=="my_home"?_myHomePage():MyActivity()
-            )));
+            child: SafeArea(
+                child: _isLoading
+                    ? Loading()
+                    : _bottomTab == "my_home" ? _myHomePage() : MyActivity())));
   }
 
   _myHomePage() {
     return ListView(
       children: <Widget>[
         Container(
-            height: 300,
-            child: Stack(fit: StackFit.expand, children:[
+            color: Color(0xffD9F7DB),
+            height: 270,
+            child: Stack(fit: StackFit.expand, children: [
               Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image:
-                              AssetImage("lib/app/assets/green_background.png"),
-                          fit: BoxFit.cover))),
-              Container(
-                  padding: EdgeInsets.all(10),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 5,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
+                    Container(
+                      decoration:
+                          BoxDecoration(color: Color(0xffD9F7DB), boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[400],
+                          blurRadius: 10.0,
+                        ),
+                      ]),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        _scaffoldKey.currentState.openDrawer();
+                                      },
+                                      child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'lib/app/assets/icons/male_child.png'),
+                                                  fit: BoxFit.cover),
+                                              shape: BoxShape.circle))),
+                                ),
+                                SizedBox(width: 5),
+                                Expanded(
+                                    flex: 5,
                                     child: GestureDetector(
                                         onTap: () {
                                           _scaffoldKey.currentState
                                               .openDrawer();
                                         },
-                                        child: Container(
-                                            width: 50,
-                                            height: 50,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        'lib/app/assets/icons/male_child.png'),
-                                                    fit: BoxFit.cover),
-                                                shape: BoxShape.circle))),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Expanded(
-                                      flex: 5,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            _scaffoldKey.currentState
-                                                .openDrawer();
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 8),
-                                              Text(
-                                                'Hello Jonathan Smith',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(height: 2),
-                                              Text(
-                                                'Good Morning',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ))),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 8),
+                                            Text(
+                                              'Hello Jonathan Smith',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(height: 2),
+                                            Text(
+                                              'Good Morning',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ))),
+                                Expanded(
+                                    flex: 2,
+                                    child: Container(
                                         padding:
                                             EdgeInsets.symmetric(vertical: 15),
                                         alignment: Alignment.topRight,
-                                        child: Text(
-                                          'SWISH',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 15),
-                  Padding(padding: EdgeInsets.only(bottom: 10),child:
-                  Card(
-                      elevation: 1,
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: BorderSide(color: Colors.white)),
-                      color: Colors.white,
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
+                                        child: Image(
+                                          image: AssetImage(
+                                              "lib/app/assets/icons/swish_text_child.png"),
+                                          width: 50,
+                                          height: 30,
+                                        )))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Container(
+                      child: Card(
+                          elevation: 1,
+                          margin: EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              side: BorderSide(color: Colors.white)),
                           color: Colors.white,
-                        ),
-                        width: double.infinity,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Image.asset(
-                                      'lib/app/assets/icons/refresh.png'),
-                                ),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              image: new DecorationImage(
+                                image: ExactAssetImage('lib/app/assets/wallet_bg.png'),
+                                fit: BoxFit.fitHeight,
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Your Wallet',
-                                        style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: 14),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        '1260.00/SAR',
-                                        style: TextStyle(
-                                            color: _darkGreen,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Divider(height: 20),
-                                      Row(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            width: double.infinity,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: GestureDetector(
+                                      onTap: () {},
+                                      child: Image.asset(
+                                          'lib/app/assets/icons/refresh_child.png',height: 20,width: 20,),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Expanded(
-                                              child: Column(
+                                          Text(
+                                            'Your Wallet',
+                                            style: TextStyle(
+                                                color: Colors.black45,
+                                                fontSize: 14),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            '1260.00/SAR',
+                                            style: TextStyle(
+                                                color: _darkGreen,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Divider(height: 20),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
                                                 children: [
                                                   Text(
                                                     '960.00/SAR',
-                                                    textAlign:
-                                                    TextAlign.start,
+                                                    textAlign: TextAlign.start,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.bold),
+                                                            FontWeight.bold),
                                                   ),
                                                   Text(
                                                     'Saving Account',
-                                                    textAlign:
-                                                    TextAlign.start,
+                                                    textAlign: TextAlign.start,
                                                     style: TextStyle(
                                                       color: Colors.black45,
                                                       fontSize: 14,
@@ -307,46 +311,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                 ],
                                               )),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              children: [
-                                                Text('540.00/SAR',
-                                                    textAlign:
-                                                    TextAlign.start,
-                                                    style: TextStyle(
-                                                        color:
-                                                        Colors.black,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .bold)),
-                                                Text(
-                                                  'Expense Account',
-                                                  textAlign:
-                                                  TextAlign.start,
-                                                  style: TextStyle(
-                                                    color: Colors.black45,
-                                                    fontSize: 14,
-                                                  ),
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text('540.00/SAR',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    Text(
+                                                      'Expense Account',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                        color: Colors.black45,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ]),
-                              )
-                            ]),
-                      )),)
-                      ])),
+                                              ),
+                                            ],
+                                          )
+                                        ]),
+                                  )
+                                ]),
+                          )),
+                    )
+                  ])),
             ])),
         Container(
             alignment: Alignment.topLeft,
             padding: EdgeInsets.all(15),
             width: MediaQuery.of(context).size.width,
-            color: Colors.white,
+            color: Color(0xffD9F7DB),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -355,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     'Chores & Health Goals',
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -365,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Your goals that your parents want you to achieve',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         color: Colors.black45,
                         fontWeight: FontWeight.bold),
                   ),
@@ -424,15 +428,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      'Chores',
-                                      style: TextStyle(
-                                          color: _activeJobTab == 'chores'
-                                              ? Colors.black
-                                              : Colors.black45,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          height: 28,
+                                          child: Text(
+                                          'Chores',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: _activeJobTab == 'chores'
+                                                  ? Colors.black
+                                                  : Colors.black45,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),),
+                                        Container(
+                                          color: Colors.black,
+                                          height: 2,
+                                        )
+
+                                      ],
+                                    )
                                   ))),
                           Expanded(
                               child: GestureDetector(
@@ -469,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.of(context).size.width,
             color: Color(0xfff5f5f5),
             child: Column(
-              children: [JobCard({}), JobCard({})],
+              children: [JobCardChild({}), JobCardChild({})],
             ))
       ],
     );

@@ -11,6 +11,7 @@ import 'package:swish_child_app/app/pages/home_screen.dart';
 import 'package:swish_child_app/app/pages/login_screen.dart';
 import 'package:swish_child_app/app/pages/introduction_screen.dart';
 
+import 'app/pages/child_home.dart';
 import 'app/pages/my_activity.dart';
 
 
@@ -34,7 +35,7 @@ class EndlessFactory extends StatelessWidget{
         'activty': (BuildContext context) => new MyActivity(),
 
       },
-      home: HomeScreen(),
+      home: ChildHome(),
     );
   }
 }
