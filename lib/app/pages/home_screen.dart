@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:swish_child_app/app/components/child_drawer.dart';
 import 'package:swish_child_app/app/utils/network_utils.dart';
 import 'package:swish_child_app/app/utils/data_utils.dart';
-
 import 'package:swish_child_app/app/components/loading.dart';
 import 'package:swish_child_app/app/components/app_drawer.dart';
 import 'package:swish_child_app/app/components/job_card.dart';
-
+import 'package:swish_child_app/app/utils/static_value.dart';
+import 'child_home.dart';
 import 'my_activity.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
         key: _scaffoldKey,
-        drawer: new Drawer(child: AppDrawer()),
+        drawer: Drawer(child: StaticValues.age>=19?new AppDrawer(): ChildDrawer("boy")),
         bottomNavigationBar: BottomAppBar(
           color: Colors.white,
           child: new Row(
@@ -65,9 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.home, color: _darkGreen, size: 25),
+                        Icon(Icons.home, color: _bottomTab=="my_home"?_darkGreen:Colors.grey, size: 25),
                         SizedBox(height: 3),
-                        Text('My Home', style: TextStyle(color: _darkGreen))
+                        Text('My Home', style: TextStyle(color: _bottomTab=="my_home"?_darkGreen:Colors.grey))
                       ],
                     )),
                 onTap: () {
@@ -108,11 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'lib/app/assets/icons/activity.png',
+                          'lib/app/assets/icons/activity.png',color: _bottomTab=="my_activity"?_darkGreen:Colors.grey,
                           height: 22,
                         ),
                         Text('My Activity',
-                            style: TextStyle(color: Color(0xff98989D)))
+                            style: TextStyle(color: _bottomTab=="my_activity"?_darkGreen:Colors.grey))
                       ],
                     )),
               )
@@ -125,9 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 content: Text('Tab back again to exit',
                     style: TextStyle(color: Colors.white)),
                 backgroundColor: Colors.black87),
-            child: SafeArea(child: _isLoading ? Loading() : _bottomTab=="my_home"?_myHomePage():MyActivity()
+            child: SafeArea(child: _isLoading ? Loading() : _bottomTab=="my_home"?StaticValues.age>=19?_myHomePage():ChildHome():MyActivity()
             )));
   }
+
 
   _myHomePage() {
     return ListView(
@@ -469,9 +470,166 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.of(context).size.width,
             color: Color(0xfff5f5f5),
             child: Column(
-              children: [JobCard({}), JobCard({})],
+              children: [InkWell(
+                child:  JobCard({}),
+                onTap: (){
+                  _modalBottomSheetChilAdult();
+                },
+
+              )
+
+                , JobCard({})],
             ))
       ],
     );
   }
+
+
+
+  _modalBottomSheetChilAdult() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (builder) {
+          return new Container(
+            //could change this to Color(0xFF737373),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    topLeft: Radius.circular(30.0)),
+              ),
+              child: Stack(
+                children: [
+
+                  Container(
+                    margin: EdgeInsets.only(top: StaticValues.age>=19?0.0:30),
+
+                    width:double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))
+
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: StaticValues.age>=19?80:60,),
+                        Text("New Chore",style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.brown[300]
+                        ),),
+                        SizedBox(height: 20,),
+                        Text("Clean your Room",style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold
+                        ),),
+                        SizedBox(height: 20,),
+                        Text("Aug 06, 2020 | 09:45 PM",style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[500]
+                        ),),
+                        SizedBox(height: 10,),
+                        Divider(),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            SizedBox(width: 20,),
+                            Text("Daily Task",style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),),
+                            SizedBox(width: 20,),
+                            Expanded(child:  Wrap(
+                              children: [
+                                _rowDays("SUN"),
+                                SizedBox(height: 10,),
+                                _rowDays("MON"),
+                                SizedBox(width: 10,),
+                                _rowDays("WED"),
+                                SizedBox(width: 10,),
+                                _rowDays("SUN"),
+                                SizedBox(width: 10,),
+                                _rowDays("MON"),
+                                SizedBox(width: 10,),
+                                _rowDays("WED"),
+
+                              ],),)
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Divider(),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _customButton("Reward 15/SAR",StaticValues.age>=19?Color.fromRGBO(64, 186, 105, 0.20):Color(0xff64D2FF),StaticValues.age>=19?Color(0xff40BB6A):Colors.white),
+                            _customButton("Penalty -10/SAR",StaticValues.age>=19?Color.fromRGBO(255, 51, 85, 0.20):Color(0xff64D2FF),StaticValues.age>=19?Color(0xffFF3355):Colors.white)
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Divider(),
+                      ],
+
+                    ),
+
+                  ),
+                  Positioned(
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [ Container(
+                        padding: EdgeInsets.only(top: 4),
+                        alignment: Alignment.center,
+                        width: 80,
+                        height: 80,
+                        child: Image(image: AssetImage("lib/app/assets/icons/chore.png"),height: 80,width:80,),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: StaticValues.age>=19?Colors.transparent:Color(0xFF99733E4D)),
+                      )
+                      ],
+                    ),)
+                ],
+              ));
+        });
+  }
+  _rowDays(String txt)
+  {
+    return Container(
+      margin: EdgeInsets.only(left: 20,top: 10),
+
+      decoration:BoxDecoration(
+          color: StaticValues.age>=19?Colors.blue[100]:Colors.green,
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        border:Border.all(color: StaticValues.age>=19?Color(0xff4284FF):Colors.transparent)
+
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+      child:Text(txt,style: TextStyle(
+          fontSize: 11,
+          color: StaticValues.age>=19?Colors.black:Colors.white,
+          fontWeight: FontWeight.bold
+      ),),
+    );
+  }
+  _customButton(String txt ,Color color,Color txtColor)
+  {
+    return Container(
+      margin: EdgeInsets.only(left: 20),
+
+      decoration:BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.all(Radius.circular(20))
+
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 30,vertical: 11),
+      child:Text(txt,style: TextStyle(
+          fontSize: 11,
+          color: txtColor,
+          fontWeight: FontWeight.bold
+      ),),
+    );
+  }
+
 }

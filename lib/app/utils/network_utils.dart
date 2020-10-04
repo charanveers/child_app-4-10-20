@@ -21,7 +21,6 @@ class NetworkUtils {
           'loginType': 'Mobile'
         }
       );
-
       final responseJson = json.decode(response.body);
       return responseJson;
 

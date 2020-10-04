@@ -52,74 +52,6 @@ class _ChildHomeState extends State<ChildHome> {
     return Scaffold(
         key: _scaffoldKey,
         drawer: new Drawer(child: AppDrawer()),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: new Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                child: Container(
-                    padding: EdgeInsets.all(5),
-                    height: 60,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(Icons.home, color: _darkGreen, size: 25),
-                        SizedBox(height: 3),
-                        Text('My Home', style: TextStyle(color: _darkGreen))
-                      ],
-                    )),
-                onTap: () {
-                  setState(() {
-                    _bottomTab = "my_home";
-                  });
-                },
-              ),
-              GestureDetector(
-                child: Container(
-                    padding: EdgeInsets.all(5),
-                    height: 60,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'lib/app/assets/icons/qr_code.png',
-                          height: 22,
-                        ),
-                        SizedBox(height: 3),
-                        Text('Scan QR Code',
-                            style: TextStyle(color: Color(0xff98989D)))
-                      ],
-                    )),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _bottomTab = "my_activity";
-                  });
-                },
-                child: Container(
-                    padding: EdgeInsets.all(5),
-                    height: 52,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'lib/app/assets/icons/activity.png',
-                          height: 22,
-                        ),
-                        Text('My Activity',
-                            style: TextStyle(color: Color(0xff98989D)))
-                      ],
-                    )),
-              )
-            ],
-          ),
-        ),
         backgroundColor: Colors.white,
         body: DoubleBackToCloseApp(
             snackBar: const SnackBar(
@@ -376,11 +308,13 @@ class _ChildHomeState extends State<ChildHome> {
                 ),
                 SizedBox(height: 15),
                 Container(
-                    height: 35,
-                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: Color(0xffefefef),
+                      color:Colors.white,
                       borderRadius: BorderRadius.circular(10),
+                        boxShadow: [BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5.0,
+                        ),]
                     ),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -392,24 +326,33 @@ class _ChildHomeState extends State<ChildHome> {
                                     _activeJobTab = 'all';
                                   });
                                 },
-                                child: Container(
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    color: _activeJobTab == 'all'
-                                        ? Colors.white
-                                        : Color(0xffefefef),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'All',
-                                    style: TextStyle(
-                                        color: _activeJobTab == 'all'
-                                            ? Colors.black
-                                            : Colors.black45,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+
+                                      padding: EdgeInsets.symmetric(vertical: 10),
+                                      child:  Text(
+                                        'All',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: _activeJobTab == 'all'
+                                                ? Colors.black
+                                                : Colors.black45,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      ),),
+                                    _activeJobTab=="all"? Container(
+                                      height: 5,
+
+                                      decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50))
+                                      ),
+                                    ):Container()
+
+                                  ],
                                 )),
                           ),
                           Expanded(
@@ -419,23 +362,14 @@ class _ChildHomeState extends State<ChildHome> {
                                       _activeJobTab = 'chores';
                                     });
                                   },
-                                  child: Container(
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                      color: _activeJobTab == 'chores'
-                                          ? Colors.white
-                                          : Color(0xffefefef),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 28,
-                                          child: Text(
+                                  child:Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+
+                                        padding: EdgeInsets.symmetric(vertical: 10),
+                                        child:  Text(
                                           'Chores',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -445,13 +379,16 @@ class _ChildHomeState extends State<ChildHome> {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 12),
                                         ),),
-                                        Container(
-                                          color: Colors.black,
-                                          height: 2,
-                                        )
+                                      _activeJobTab=="chores"? Container(
+                                        height: 5,
 
-                                      ],
-                                    )
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50))
+                                        ),
+                                      ):Container()
+
+                                    ],
                                   ))),
                           Expanded(
                               child: GestureDetector(
@@ -460,25 +397,32 @@ class _ChildHomeState extends State<ChildHome> {
                                       _activeJobTab = 'health_chores';
                                     });
                                   },
-                                  child: Container(
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                      color: _activeJobTab == 'health_chores'
-                                          ? Colors.white
-                                          : Color(0xffefefef),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Health Chores',
-                                      style: TextStyle(
-                                          color:
-                                              _activeJobTab == 'health_chores'
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(vertical: 10),
+                                        child:  Text(
+                                          'Health Chores',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: _activeJobTab == 'health_chores'
                                                   ? Colors.black
                                                   : Colors.black45,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    ),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),),
+                                      _activeJobTab=="health_chores"? Container(
+                                        height: 5,
+
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50))
+                                        ),
+                                      ):Container()
+
+                                    ],
                                   )))
                         ]))
               ],
@@ -488,7 +432,18 @@ class _ChildHomeState extends State<ChildHome> {
             width: MediaQuery.of(context).size.width,
             color: Color(0xfff5f5f5),
             child: Column(
-              children: [JobCardChild({}), JobCardChild({})],
+              children: [
+
+
+               InkWell(
+                 child:  JobCardChild({}),
+                 onTap: (){
+
+
+                 },
+               ),
+
+                JobCardChild({})],
             ))
       ],
     );

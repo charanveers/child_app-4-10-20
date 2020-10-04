@@ -38,6 +38,7 @@ dev_dependencies:
   double_back_to_close_app:
   flutter_launcher_icons: "^0.7.2"
   fluttertoast: ^3.1.2
+  qrscan: ^0.2.17
 
 flutter_icons:
   android: "launcher_icon"
@@ -64,7 +65,6 @@ flutter:
     - lib/app/assets//icons/about.png
     - lib/app/assets//icons/privacy.png
     - lib/app/assets//icons/logout.png
-    - lib/app/assets//icons/reward.png
     - lib/app/assets//icons/contact.png
     - lib/app/assets//icons/donate.png
     - lib/app/assets//icons/academics.png
@@ -85,6 +85,16 @@ flutter:
     - lib/app/assets/icons/swish_text_child.png
     - lib/app/assets/wallet_bg.png
     - lib/app/assets/icons/refresh_child.png
+    - lib/app/assets/vouchertab.png
+    - lib/app/assets/rewardtab.png
+    - lib/app/assets/excellent.png
+    - lib/app/assets/donatebg.png
+    - lib/app/assets/icons/chore.png
+    - lib/app/assets/icons/reward.png
+
+
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:swish_child_app/app/utils/data_utils.dart';
-
-import 'package:swish_child_app/app/components/logo.dart';
-
 import 'package:swish_child_app/app/pages/home_screen.dart';
 import 'package:swish_child_app/app/pages/login_screen.dart';
 import 'package:swish_child_app/app/pages/introduction_screen.dart';
-
+import 'app/pages/child_boy/donate.dart';
+import 'app/pages/child_boy/donate_about.dart';
+import 'app/pages/child_boy/my_acadim.dart';
+import 'app/pages/child_boy/reward_donate.dart';
 import 'app/pages/child_home.dart';
 import 'app/pages/my_activity.dart';
 
@@ -33,9 +32,8 @@ class EndlessFactory extends StatelessWidget{
         'splash': (BuildContext context) => new SplashScreen(),
         'intro': (BuildContext context) => new IntroductionScreen(),
         'activty': (BuildContext context) => new MyActivity(),
-
       },
-      home: ChildHome(),
+      home: HomeScreen(),
     );
   }
 }
